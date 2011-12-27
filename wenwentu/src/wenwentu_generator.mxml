@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="852" height="487" minWidth="600" minHeight="300">
+	<fx:Style source="wenwentu.css"/>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.graphics.codec.PNGEncoder;
+			protected function btnDownloadImage_clickHandler(event:MouseEvent):void
+			{
+				var bmpData:BitmapData = new BitmapData(imgCanvas.width, imgCanvas.height,true);
+				bmpData.draw(imgCanvas);
+				var pngenc:PNGEncoder = new PNGEncoder();
+				var imgByteArray:ByteArray = pngenc.encode(bmpData);	
+				var file:FileReference = new FileReference();
+				file.save(imgByteArray, "wenwentu.png");
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:Canvas id="imgCanvas" left="10" top="14" width="450" height="450">
+		<s:Image left="0" right="0" top="0" bottom="0" scaleMode="letterbox" smooth="true"
+				 smoothingQuality="high" source="assets/philosoraptor.jpg"/>
+		<s:Label id="lblUpperText" left="70" right="70" top="26" height="105" color="#ffffff"
+				 fontFamily="Hei" fontSize="30" styleName="wen" text="{txtUpperText.text}"
+				 textAlign="center" verticalAlign="middle">
+			<s:filters>
+				<s:GlowFilter strength="5" color="#000000" blurX="5" blurY="5"/>
+			</s:filters>
+		</s:Label>
+		<s:Label id="lblLowerText" left="70" right="70" bottom="35" height="84" color="#ffffff"
+				 fontFamily="Hei" fontSize="30" styleName="wen" text="{txtLowerText.text}"
+				 textAlign="center" verticalAlign="middle">
+			<s:filters>
+				<s:GlowFilter strength="5" color="#000000" blurX="5" blurY="5"/>
+			</s:filters>
+		</s:Label>
+	</mx:Canvas>
+	
+	<s:Group x="472" top="124" bottom="137" width="370">
+		<s:TextInput id="txtUpperText" y="35" left="10" right="18" height="28" fontFamily="SimSum"
+					 styleName="" text="如果我的优酸乳在2013年2月12日过期"/>
+		<s:Label x="17" y="20" text="上端文字"/>
+		<s:TextInput id="txtLowerText" y="91" left="10" right="18" height="28" fontFamily="SimSum"
+					 text="这个世界怎么会在2012年终结？"/>
+		<s:Label x="17" y="71" text="下端文字"/>
+		<s:Button id="btnDownloadImage" y="133" right="18" label="下载图片"
+				  click="btnDownloadImage_clickHandler(event)"/>
+	</s:Group>
+	
+</s:Application>
