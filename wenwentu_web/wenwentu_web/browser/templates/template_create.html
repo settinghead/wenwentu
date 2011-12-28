@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{template.name}}{% endblock %}
+{% block head %}
+	
+{% endblock %}
+
+{% block content %}
+<h2>制作一个文文图模板</h2>
+{% if errors %}
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+{% endif %}
+
+    <form action="/template/create" method="POST">
+        <p>模板名称: <input type="text" name="name"></p>
+        <p>英文名称（可选）: <input type="text" name="english_name"></p>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
